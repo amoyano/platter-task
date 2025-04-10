@@ -44,16 +44,18 @@
         {% endfor %}
       </div>
     </div>
-    <button
-      class='show-more-less mt-6 bg-black w-full text-white px-4 py-2 rounded-full hover:bg-gray-800 md:hidden'
-      data-show-more-text='{{ section.settings.show_more_text }}'
-      data-show-less-text='{{ section.settings.show_less_text }}'
-      aria-expanded='false'
-      aria-controls='additional-products'
-      tabindex='0'
-    >
-      {{ section.settings.show_more_text }}
-    </button>
+    {%- if section.settings.products.count > initial_limit -%}
+      <button
+        class='show-more-less mt-6 bg-black w-full text-white px-4 py-2 rounded-full hover:bg-gray-800 md:hidden'
+        data-show-more-text='{{ section.settings.show_more_text }}'
+        data-show-less-text='{{ section.settings.show_less_text }}'
+        aria-expanded='false'
+        aria-controls='additional-products'
+        tabindex='0'
+      >
+        {{ section.settings.show_more_text }}
+      </button>
+    {%- endif -%}
   </div>
 </best-sellers>
 
