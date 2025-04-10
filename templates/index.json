@@ -7,14 +7,14 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
- {
+{
   "sections": {
     "best_sellers_ypqPbh": {
       "type": "best-sellers",
       "settings": {
         "title": "Best Sellers",
         "shop_all_text": "Shop All Best Sellers",
-        "shop_all_link": "",
+        "shop_all_link": "shopify://collections/frontpage",
         "initial_products": 4,
         "products": [
           "shoes-nike-1",
