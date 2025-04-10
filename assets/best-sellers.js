@@ -20,7 +20,6 @@ class BestSellers extends HTMLElement {
       this.showMoreBtn.addEventListener('click', this.toggleCards);
       this.showMoreBtn.addEventListener('keydown', this.handleKeyDown);
 
-      // Hide button if no additional products
       if (this.additionalCards.children.length === 0) {
         this.showMoreBtn.style.display = 'none';
       }
