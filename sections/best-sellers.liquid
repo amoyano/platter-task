@@ -1,0 +1,97 @@
+{%- assign initial_limit = section.settings.initial_products -%}
+
+<best-sellers class='best-sellers p-6'>
+  <div class='max-w-7xl mx-auto px-8 md:px-0'>
+    <div class='flex justify-center md:justify-between items-center mb-8'>
+      {%- if section.settings.title != blank -%}
+        <h2 class='text-4xl font-bold text-black'>{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.shop_all_link != blank -%}
+        <a
+          href='{{ section.settings.shop_all_link }}'
+          class='text-sm text-black hover:underline items-center gap-2 hidden md:flex'
+        >
+          {{- section.settings.shop_all_text -}}
+          {{- 'icon-arrow.svg' | inline_asset_content -}}
+        </a>
+      {%- endif -%}
+    </div>
+    <div
+      class='
+        product-container relative flex flex-row flex-wrap justify-between md:flex-nowrap md:flex-row md:overflow-x-auto
+        scrollbar-hide scrollbar-thumb-rounded-full scrollbar-track-rounded-full hover:scrollbar-thin hover:scrollbar-thumb-black hover:scrollbar-track-gray-200
+        gap-y-4 md:gap-y-0 md:space-y-0
+      '
+    >
+      {% for product in section.settings.products limit: initial_limit %}
+        <div class='product-wrapper w-[calc(50%-4px)] md:min-w-[280px] md:w-[280px] md:mr-6 flex-shrink-0'>
+          {% render 'product-card', product: product, badge: section.settings.badge %}
+        </div>
+      {% endfor %}
+      <div class='additional-cards w-full max-h-0 md:max-h-full overflow-hidden transition-all duration-500 ease-in-out md:overflow-visible md:w-auto flex flex-row flex-wrap justify-between md:flex-nowrap md:flex-row gap-y-4 md:gap-0'>
+        {% for product in section.settings.products offset: initial_limit %}
+          <div class='product-wrapper w-[calc(50%-4px)] md:min-w-[280px] md:w-[280px] md:mr-6 flex-shrink-0'>
+            {% render 'product-card', product: product, badge: section.settings.badge %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    <button
+      class='mt-6 bg-black w-full text-white px-4 py-2 rounded-full hover:bg-gray-800 md:hidden'
+    >
+      Show More
+    </button>
+  </div>
+</best-sellers>
+
+<script src='{{ 'best-sellers.js' | asset_url }}' defer></script>
+
+{% schema %}
+{
+  "name": "Best Sellers",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "shop_all_text",
+      "label": "Shop All Text",
+      "default": "Shop All Best Sellers"
+    },
+    {
+      "type": "url",
+      "id": "shop_all_link",
+      "label": "Shop All Link"
+    },
+    {
+      "type": "number",
+      "id": "initial_products",
+      "label": "Number of products to show initially on mobile",
+      "default": 4
+    },
+    {
+      "type": "product_list",
+      "id": "products",
+      "label": "Products"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge Text",
+      "default": "BEST SELLER",
+      "info": "Text displayed as a badge on the product cards"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Best Sellers",
+      "category": "Products"
+    }
+  ]
+}
+{% endschema %}
